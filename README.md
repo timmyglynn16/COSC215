@@ -25,3 +25,25 @@ To convert a decimal number to binary one place at a time (starting with the one
 The process stops when the number becomes 0. The remainders taken in reverse order is the number in binary, e.g., 1410 = 11102.
 Use the stack to reverse the digits. That is, push the remainders onto the stack when they are generated. When finished, pop the elements from the stack, one at a time, and print them out.
 Use the linked list representation of the stack. You may use code from the book, from the book's web-site, from class, or roll your own.
+
+ASSIGNMENT 4:
+For this assignment, you are to add the following methods, implemented efficiently, to the Tree class from class:
+• public String toStringReversed() // Returns a string that contains the keys in reverse order.
+• public Node ceiling(K key) // returns the node with the smallest key that is greater than or equal to key. If key is in the tree, then the node containing key is returned. If key is greater than any key in the true, null is returned.
+• public Node floor(K key) // returns the node with the largest key that is less than or equal to key. If key is in the tree, then the node containing key is returned. If key is less than any key in the true, null is returned.
+• public int diameter() // Returns the diameter of the tree (see below).
+• public int numBetween(K key1, K key2) // Returns the number of records in the tree
+whose keys are between key1 and key2, inclusive.
+The diameter of a tree is the number of nodes on the longest path in the tree. Neither of the end nodes need be the root of the tree, that is, the longest path need not go through the root of the tree! The diameter is always the largest of these three numbers: (height of the left subtree + height of the right subtree + 1; diameter of the left subtree, diameter of the right subtree).
+Examples
+In the tree is created by adding the keys B, G, K, P, R, S, V, in that order to an initially empty tree, then:
+• toStringReversed should return the string "V S R P K G B".
+• ceiling("C") is "G", ceiling("P") is "P", and ceiling("Y") is null.
+• floor("C") is "B", floor("P") is "P", and floor("A") is null.
+• The diameter of this tree would be 7. The diameter of the tree formed by adding the keys in this order:
+P, G, B, K, S, R, V would be 5. The diameter of the tree formed by this order: B P G K S R V would
+also be 5.
+• numBetween("B","V") is 7, numBetween("A","Z") is 7, numBetween("C","Q") is 3, and
+numBetween("H","J") is 0.
+Additional requirements
+These internal methods to implement these functions must be recursive. In addition to writing these methods, please write a main method (in the Tree class) that tests your code. You may have external, non-recursive methods call the internal, recursive methods. Also, give the worst-case running time of your methods in big- O notation. Your code should be efficient.
