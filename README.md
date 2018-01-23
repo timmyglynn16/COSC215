@@ -47,3 +47,81 @@ also be 5.
 numBetween("H","J") is 0.
 Additional requirements
 These internal methods to implement these functions must be recursive. In addition to writing these methods, please write a main method (in the Tree class) that tests your code. You may have external, non-recursive methods call the internal, recursive methods. Also, give the worst-case running time of your methods in big- O notation. Your code should be efficient.
+
+ASSIGNMENT 5:
+Consider the following new Abstract Data Type (ADT): 2-Key Database.
+A 2-Key Database consists of a list of records, each having having two key fields and a data field. Both types of keys must be Comparable. A 2-Key Database must be able to store records, and then efficiently retrieve a record given either key. For example, consider a university student database where the student records are indexed by the student's name (a String) and an ID number (say a Long). The data field can be of any type. You may assume that records have unique keys.
+The class should be defined as:
+public class TwoKey<K1 extends Comparable, K2 extends Comparable, D>
+{ ... }
+The operations that define a 2-Key Database are:
+• void add(K1 key1, K2 key2, D data) // add a record to the database
+• D find1(K1 key1) // find and return the data associated with key1
+• D find2(K2 key2) // find and return the data associated with key2
+• void modify1(K1 key1, D data) // modify the record associated with key1 to contain the
+new data
+• void modify2(K2 key2, D data) // modify the record associated with key2 to contain the
+new data
+• void change1(K1 key1, K2 key2) // change the second key of the record associated with
+key1 to be key2
+• void change2(K2 key2, K1 key1) // change the first key of record associated with key2 to
+be key1
+• String list1() // return the list (key, data) in order by key1 as a String
+• String list2() // return the list (key, data) in order by key2 as a String
+Note that if a record is (key1, key2, data), modifying the data associated with key1 also modifies the data associated with key2. Should find1 or find2 not find the record associated with the key they return null.
+The code implementing the 2-Key Database must be in its own file, and the ADT must be implemented using generic types for the keys and data. You should write a test program that tests your code. Be sure to test all the methods and look at special cases including error conditions. You do not have to submit your test program.
+Additional Requirement
+Your code should use the simple database ADT (implemented as a tree) in a meaningful way. Hint 1: Use two simple databases, one which uses key1 as its key and the other which uses key2 as its key to implement a 2- key database. Call the operations of simple database ADT to implement the operations of the 2-Key database. You do not need to change the simple database code in any way for this assignment. Hint 2: Store both key1 and key2 in the data along with the real data.
+You may use the code for the simple database ADT done in class, the code in the book, or the TreeMap API.
+Example
+Consider the following main method:
+    public static void main(String[] args) {
+        TwoKey<String, Integer, Integer> db = new TwoKey();
+        db.add("Sam", 1, 2);
+        db.add("Joe", 2, 3);
+        db.add("Wilma", 3, 5);
+        db.add("Bob", 4, 7);
+        System.out.println(db.find1("Wilma"));
+        System.out.println(db.find2(4));
+        System.out.println(db.list1());
+        System.out.println(db.list2());
+        db.modify1("Sam", 11);
+        db.modify1("Joe", 13);
+        db.modify2(1, 17);
+        db.change1("Bob", 5);
+        db.change2(3, "Pebbles");
+        System.out.println(db.list1());
+        System.out.println(db.list2());
+}
+The output should be:
+java TwoKey
+5
+7
+(Bob,7)(Joe,3)(Sam,2)(Wilma,5)
+(1,2)(2,3)(3,5)(4,7)
+(Bob,7)(Joe,13)(Pebbles,5)(Sam,17)
+(1,17)(2,13)(3,5)(5,7)
+
+ASSIGNMENT 6:
+For your last assignment, write a program that will print out all the anagrams for a given word. Here, an anagram is defined as an English word which has exactly the same letters, but may be in a different order. For example, "god" and "dog" are anagrams. The words will always be in lowercase. The program should first read in a list of English words from the file "wordsEn.txt" and then prompt the user to enter words. The program will then read in words from standard input, one word per line, and print out to standard output a list of all anagrams that match each word. The user will type in a blank line to end the program.
+The program must use a HashMap in a meaningful way and should use the file "wordsEn.txt" for a list of English words.
+Hint: The trick is to process the list of words as you read them in. Put each word into canonical form, by sorting the letters in the word. Two words which are anagrams will have the same canonical form. Use a HashMap whose key is the canonical form of the word (a String), and whose data is a list of English words with the same letters as the canonical form (ArrayList<String>.) When the program reads in a word from the word list, sort the letters, use the HashMap to find the list of English words associated with the canonical form, and then add the new word to that list. Create the ArrayList if it's not already created.
+Further hint: To sort the letters of a word use:
+char[] x = word.toCharArray();
+Arrays.sort(x);
+String canonicalWord = new String(x);
+(There's need for the CharArray wrapper class that we used in class. You can convert the char[] array back to a String, and the HashMap will use the hashCode for String, which is fine.)
+Example
+Enter a word (blank line to end) > god
+[dog, god]
+Enter a word (blank line to end) > spare
+[apers, apres, asper, pares, parse, pears, rapes, reaps, spare, spear]
+Enter a word (blank line to end) > eat
+[ate, eat, eta, tea]
+Enter a word (blank line to end) > grape
+[gaper, grape]
+Enter a word (blank line to end) > cry
+[cry]
+Enter a word (blank line to end) > xyxxy
+null
+Enter a word (blank line to end) >
